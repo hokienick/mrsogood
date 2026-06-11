@@ -1,11 +1,11 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./index.html', './src/**/*.{js,jsx,ts,tsx}'],
+  content: ['./app/**/*.{js,jsx,ts,tsx}', './src/**/*.{js,jsx,ts,tsx}'],
   theme: {
     extend: {
       colors: {
         ink:    '#1A1410',
-        cream:  '#F5F0E8',
+        chalk:  '#F7F6F3',
         navy:   '#2B3A52',
         sand:   '#8B6F47',
         coral:  '#E86B3A',

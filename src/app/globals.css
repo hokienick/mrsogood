@@ -1,0 +1,124 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Lenis smooth scroll */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  font-family: var(--font-space-grotesk), sans-serif;
+  background: #F7F6F3;
+  color: #1A1410;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Typography ── */
+.display {
+  font-family: var(--font-archivo), sans-serif;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 0.92;
+}
+.display-italic {
+  font-family: var(--font-archivo), sans-serif;
+  font-weight: 900;
+  font-style: italic;
+  letter-spacing: -0.04em;
+  line-height: 0.92;
+}
+
+/* ── Nav underline slide-in ── */
+.nav-link { position: relative; display: inline-block; }
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; left: 0;
+  width: 0; height: 1.5px;
+  background: #E86B3A;
+  transition: width 220ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.nav-link:hover::after { width: 100%; }
+
+/* ── Input focus ── */
+.field { transition: border-color 180ms ease, box-shadow 180ms ease; }
+.field:focus {
+  outline: none;
+  border-color: #E86B3A;
+  box-shadow: 0 0 0 3px rgba(232,107,58,0.15);
+}
+.field:-webkit-autofill,
+.field:-webkit-autofill:hover,
+.field:-webkit-autofill:focus {
+  -webkit-text-fill-color: #1A1410;
+  caret-color: #1A1410;
+  box-shadow: 0 0 0 1000px #F7F6F3 inset;
+}
+
+/* ── Noise grain overlay ── */
+.noise-overlay { position: relative; }
+.noise-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.04;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Marquee ── */
+@keyframes scrollDot {
+  0%   { transform: translateY(0);    opacity: 1; }
+  60%  { transform: translateY(10px); opacity: 0.2; }
+  100% { transform: translateY(0);    opacity: 1; }
+}
+
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-marquee { animation: marquee 25s linear infinite; }
+
+/* ── Shimmer on buttons ── */
+.btn-shimmer { position: relative; overflow: hidden; }
+.btn-shimmer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 35%, rgba(255,255,255,0.25) 50%, transparent 65%);
+  transform: translateX(-100%);
+  transition: transform 0s;
+}
+.btn-shimmer:hover::after {
+  transform: translateX(100%);
+  transition: transform 0.5s ease;
+}
+
+/* ── Project cards: visual-first split layout ── */
+.project-card {
+  box-shadow: 0 1px 3px rgba(26, 20, 16, 0.06);
+  transition: border-color 0.2s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+.project-card:hover {
+  border-color: rgba(232, 107, 58, 0.35);
+  box-shadow: 0 14px 36px rgba(26, 20, 16, 0.1);
+}
+
+.works-gallery video {
+  will-change: opacity;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .works-gallery * {
+    transition-duration: 0.01ms !important;
+  }
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+}

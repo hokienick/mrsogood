@@ -1,5 +1,6 @@
+'use client'
 import { useEffect, useRef } from 'react'
-import { Link } from 'react-router-dom'
+import Link from 'next/link'
 
 export function GalleryInfoPanel({ project, visible, flush = false, className = '' }) {
   return (
@@ -22,9 +23,9 @@ export function GalleryInfoPanel({ project, visible, flush = false, className = 
       <h3 className="display text-lg md:text-xl text-white uppercase tracking-tight leading-none mb-1">
         {project.name}
       </h3>
-      <p className="font-body text-base text-white/65 mb-4">{project.location}</p>
+      <p className="font-body text-base text-white/75 mb-4">{project.location}</p>
       <div className="pt-3 border-t border-white/10 flex items-center justify-between gap-3">
-        <span className="font-body text-base uppercase tracking-widest text-white/50">View case study</span>
+        <span className="font-body text-base uppercase tracking-widest text-white/70">View case study</span>
         <svg className="w-4 h-4 text-coral shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
         </svg>
@@ -118,7 +119,7 @@ export default function GalleryVideoCard({
 
   return (
     <Link
-      to={`/work/${project.slug}`}
+      href={`/work/${project.slug}`}
       style={cardStyle}
       className={[
         'group relative overflow-hidden rounded-[2rem] md:rounded-[2.5rem] block',

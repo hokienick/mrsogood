@@ -1,5 +1,6 @@
+'use client'
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import Link from 'next/link'
 import BrowserChrome from './BrowserChrome'
 
 function PreviewPlaceholder({ project }) {
@@ -31,7 +32,7 @@ export default function ProjectCard({ project: p, className = '' }) {
 
   return (
     <Link
-      to={`/work/${p.slug}`}
+      href={`/work/${p.slug}`}
       className={`project-card group block bg-white rounded-2xl overflow-hidden border border-ink/10 cursor-pointer ${className}`}
     >
       {/* Visual-first: unobstructed preview, no text overlay */}

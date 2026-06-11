@@ -12,7 +12,7 @@ html.lenis, html.lenis body { height: auto; }
 
 body {
   font-family: 'Space Grotesk', sans-serif;
-  background: #F5F0E8;
+  background: #F7F6F3;
   color: #1A1410;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
@@ -52,16 +52,15 @@ body {
   border-color: #E86B3A;
   box-shadow: 0 0 0 3px rgba(232,107,58,0.15);
 }
+.field:-webkit-autofill,
+.field:-webkit-autofill:hover,
+.field:-webkit-autofill:focus {
+  -webkit-text-fill-color: #1A1410;
+  caret-color: #1A1410;
+  box-shadow: 0 0 0 1000px #F7F6F3 inset;
+}
 
 /* ── Noise grain overlay ── */
-@keyframes grain {
-  0%, 100% { transform: translate(0, 0); }
-  10%       { transform: translate(-5%, -10%); }
-  30%       { transform: translate(3%, -15%); }
-  50%       { transform: translate(12%, 9%); }
-  70%       { transform: translate(9%, 4%); }
-  90%       { transform: translate(-1%, 7%); }
-}
 .noise-overlay { position: relative; }
 .noise-overlay::before {
   content: '';
@@ -71,10 +70,15 @@ body {
   opacity: 0.04;
   pointer-events: none;
   z-index: 0;
-  animation: grain 8s steps(10) infinite;
 }
 
 /* ── Marquee ── */
+@keyframes scrollDot {
+  0%   { transform: translateY(0);    opacity: 1; }
+  60%  { transform: translateY(10px); opacity: 0.2; }
+  100% { transform: translateY(0);    opacity: 1; }
+}
+
 @keyframes marquee {
   0%   { transform: translateX(0); }
   100% { transform: translateX(-50%); }
