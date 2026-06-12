@@ -41,8 +41,9 @@ export async function POST(req) {
 
   if (!res.ok) {
     const err = await res.text()
-    console.error('Brevo error:', err)
-    return NextResponse.json({ error: 'Failed to send' }, { status: 500 })
+    console.error('Brevo error status:', res.status)
+    console.error('Brevo error body:', err)
+    return NextResponse.json({ error: 'Failed to send', details: err }, { status: 500 })
   }
 
   return NextResponse.json({ ok: true })
