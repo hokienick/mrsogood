@@ -24,6 +24,8 @@ export async function POST(req) {
     </table>
   `
 
+  console.log('API key prefix:', process.env.BREVO_API_KEY?.slice(0, 20))
+
   const res = await fetch('https://api.brevo.com/v3/smtp/email', {
     method: 'POST',
     headers: {
