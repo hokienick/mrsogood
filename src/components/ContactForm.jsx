@@ -75,7 +75,7 @@ export default function ContactForm({ dark = false }) {
         </div>
         <div>
           <label htmlFor="website" className={label}>Current Website <span className="text-coral normal-case tracking-normal">*</span></label>
-          <input id="website" name="website" type="url" required value={form.website} onChange={handle} placeholder="https://yoursite.com" className={base} />
+          <input id="website" name="website" type="text" required value={form.website} onChange={handle} placeholder="https://yoursite.com" className={base} />
         </div>
       </div>
       <div>
