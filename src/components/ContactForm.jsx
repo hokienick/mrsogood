@@ -20,7 +20,27 @@ export default function ContactForm({ dark = false }) {
 
   const handle = e => setForm(f => ({ ...f, [e.target.name]: e.target.value }))
   const toggleAddon = id => setAddons(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id])
-  const submit = e => { e.preventDefault(); setSent(true) }
+  const [error, setError] = useState(null)
+  const [loading, setLoading] = useState(false)
+
+  const submit = async e => {
+    e.preventDefault()
+    setLoading(true)
+    setError(null)
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...form, addons, takesBookings }),
+      })
+      if (!res.ok) throw new Error()
+      setSent(true)
+    } catch {
+      setError('Something went wrong. Please email nick@mistersogood.com directly.')
+    } finally {
+      setLoading(false)
+    }
+  }
 
   const base = `field w-full border rounded-xl px-4 py-3 font-body text-base focus:outline-none transition-colors duration-200 ${
     dark
@@ -139,9 +159,10 @@ export default function ContactForm({ dark = false }) {
           placeholder="Tell me about your business, your goals, whatever helps."
           className={base + ' resize-none'} />
       </div>
-      <button type="submit"
-        className="btn-primary w-full bg-coral text-chalk font-body font-semibold py-4 rounded-xl text-base cursor-pointer">
-        Send It →
+      {error && <p className="font-body text-sm text-red-500">{error}</p>}
+      <button type="submit" disabled={loading}
+        className="btn-primary w-full bg-coral text-chalk font-body font-semibold py-4 rounded-xl text-base cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed">
+        {loading ? 'Sending…' : 'Send It →'}
       </button>
     </form>
   )
