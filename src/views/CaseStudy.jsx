@@ -25,7 +25,7 @@ function TrafficLights() {
   )
 }
 
-function ChromeBar({ beforeImages }) {
+function ChromeBar({ beforeImages, beforeUrl }) {
   return (
     <div className="flex items-center gap-3 px-4 py-2.5 bg-[#EDEAE5] rounded-t-[calc(1.25rem-0.375rem)] border-b border-black/5">
       <TrafficLights />
@@ -33,7 +33,7 @@ function ChromeBar({ beforeImages }) {
         <div className="bg-white/60 rounded-full px-3 py-1 flex items-center gap-2 max-w-[300px]">
           <svg
             className="w-3 h-3 flex-shrink-0"
-            style={{ color: 'rgba(26,20,16,0.3)' }}
+            style={{ color: 'rgba(26,20,16,0.55)' }}
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -42,8 +42,8 @@ function ChromeBar({ beforeImages }) {
           >
             <path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
           </svg>
-          <span className="font-body text-xs truncate" style={{ color: 'rgba(26,20,16,0.32)' }}>
-            original website
+          <span className="font-body text-xs truncate" style={{ color: 'rgba(26,20,16,0.65)' }}>
+            beforemrsogood.com
           </span>
         </div>
       </div>
@@ -153,10 +153,10 @@ export default function CaseStudy() {
           transition={{ duration: 1.0, ease: [0.25, 0.4, 0.25, 1] }}
         >
           <img
-            src={p.beforeImages[0].src}
-            alt={`${p.name} — before redesign`}
+            src={p.heroImage ?? p.beforeImages[0].src}
+            alt={`${p.name} — hero`}
             className="w-full h-full object-cover object-top"
-            style={{ filter: BEFORE_FILTER }}
+            style={{ filter: p.heroImage ? 'none' : BEFORE_FILTER }}
           />
           <div className="absolute inset-0 pointer-events-none" aria-hidden="true"
             style={{ background: 'linear-gradient(to bottom, rgba(26,20,16,0.05) 0%, rgba(26,20,16,0.4) 100%)' }}
@@ -172,7 +172,7 @@ export default function CaseStudy() {
         </motion.div>
 
         {/* Chalk title card — anchored to bottom of remaining viewport space */}
-        <div className="relative z-10 flex flex-col justify-end flex-1 px-6 md:px-10 pb-12 md:pb-16">
+        <div className="relative z-10 flex flex-col justify-center flex-1 px-6 md:px-10 pb-6 md:pb-8">
           <div className="max-w-6xl mx-auto w-full">
 
             <motion.h1
@@ -219,8 +219,8 @@ export default function CaseStudy() {
       {/* ── BEFORE: mobile (static scrollable chrome) ─────── */}
       <section className="md:hidden bg-[#1A1410] px-4 py-12">
         <div className="flex items-center gap-4 mb-5 px-2">
-          <div className="w-8 h-px" style={{ background: 'rgba(255,255,255,0.18)' }} />
-          <p className="font-body text-[11px] uppercase tracking-[0.2em]" style={{ color: 'rgba(255,255,255,0.28)' }}>
+          <div className="w-8 h-px" style={{ background: 'rgba(255,255,255,0.45)' }} />
+          <p className="font-body text-[11px] uppercase tracking-[0.2em]" style={{ color: 'rgba(255,255,255,0.7)' }}>
             The original site
           </p>
         </div>
@@ -232,7 +232,7 @@ export default function CaseStudy() {
             outline: '1px solid rgba(0,0,0,0.08)',
           }}
         >
-          <ChromeBar beforeImages={p.beforeImages} />
+          <ChromeBar beforeImages={p.beforeImages} beforeUrl={p.beforeUrl} />
           <div className="rounded-b-[calc(1.25rem-0.375rem)] overflow-hidden" style={{ maxHeight: '65vh', overflowY: 'auto' }}>
             {p.beforeImages.map((img) => (
               <img key={img.src} src={img.src} alt={`${p.name} original site`} className="w-full h-auto block" style={{ filter: BEFORE_FILTER }} />
@@ -251,8 +251,8 @@ export default function CaseStudy() {
           <div className="w-full max-w-5xl">
             {/* Label */}
             <div className="flex items-center gap-4 mb-6">
-              <div className="w-10 h-px" style={{ background: 'rgba(255,255,255,0.18)' }} />
-              <p className="font-body text-[11px] uppercase tracking-[0.22em]" style={{ color: 'rgba(255,255,255,0.3)' }}>
+              <div className="w-10 h-px" style={{ background: 'rgba(255,255,255,0.45)' }} />
+              <p className="font-body text-[11px] uppercase tracking-[0.22em]" style={{ color: 'rgba(255,255,255,0.7)' }}>
                 The original site
               </p>
             </div>
@@ -266,7 +266,7 @@ export default function CaseStudy() {
                 outline: '1px solid rgba(0,0,0,0.08)',
               }}
             >
-              <ChromeBar beforeImages={p.beforeImages} />
+              <ChromeBar beforeImages={p.beforeImages} beforeUrl={p.beforeUrl} />
 
               {/* Screenshot viewport — fixed height, GSAP moves content up */}
               <div
@@ -314,7 +314,14 @@ export default function CaseStudy() {
           className="rounded-2xl relative overflow-hidden flex items-center justify-center"
           style={{ minHeight: '300px', background: afterGradient }}
         >
-          <div className="absolute inset-0 pointer-events-none" aria-hidden="true" style={{ backgroundImage: NOISE_BG, opacity: 0.05 }} />
+          {p.afterImage && (
+            <img
+              src={p.afterImage}
+              alt={`${p.name} — redesign`}
+              className="absolute inset-0 w-full h-full object-cover object-top"
+            />
+          )}
+          {!p.afterImage && <div className="absolute inset-0 pointer-events-none" aria-hidden="true" style={{ backgroundImage: NOISE_BG, opacity: 0.05 }} />}
           <div className="relative text-center px-8">
             {p.afterUrl ? (
               <a
@@ -357,7 +364,7 @@ export default function CaseStudy() {
             />
             <div className="absolute inset-0" style={{ background: 'rgba(26,20,16,0.45)' }} />
             <div className="absolute top-7 left-8">
-              <p className="font-body text-[11px] font-semibold uppercase tracking-[0.2em]" style={{ color: 'rgba(255,255,255,0.28)' }}>
+              <p className="font-body text-[11px] font-semibold uppercase tracking-[0.2em]" style={{ color: 'rgba(255,255,255,0.75)' }}>
                 Before
               </p>
             </div>
@@ -369,7 +376,14 @@ export default function CaseStudy() {
             className="absolute inset-0 flex items-center justify-center"
             style={{ clipPath: 'inset(0 100% 0 0)', background: afterGradient }}
           >
-            <div className="absolute inset-0 pointer-events-none" aria-hidden="true" style={{ backgroundImage: NOISE_BG, opacity: 0.05 }} />
+            {p.afterImage && (
+              <img
+                src={p.afterImage}
+                alt={`${p.name} — redesign`}
+                className="absolute inset-0 w-full h-full object-cover object-top"
+              />
+            )}
+            {!p.afterImage && <div className="absolute inset-0 pointer-events-none" aria-hidden="true" style={{ backgroundImage: NOISE_BG, opacity: 0.05 }} />}
 
             {/* After corner label — fades in via GSAP */}
             <div ref={afterLabelRef} className="absolute top-7 right-8" style={{ opacity: 0 }}>
@@ -497,7 +511,7 @@ export default function CaseStudy() {
             viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.7, ease: [0.25, 0.4, 0.25, 1] }}
           >
-            <p className="font-body text-base text-chalk/40 mb-6 leading-relaxed">
+            <p className="font-body text-base text-chalk/70 mb-6 leading-relaxed">
               Every one of them looked better within 24 hours.
             </p>
             <h2
