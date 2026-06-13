@@ -206,29 +206,30 @@ export default function Home() {
             </motion.div>
 
             {/* Headline */}
+            <h1 className="sr-only">Small Business Web Design</h1>
             <div className="mb-1">
-              <motion.h1
+              <motion.p
                 className="display text-[clamp(3rem,6vw,6.5rem)] text-chalk leading-[0.9]"
                 variants={riseUp} initial="hidden" animate="visible" custom={1}
               >
                 You didn't know
-              </motion.h1>
+              </motion.p>
             </div>
             <div className="mb-1">
-              <motion.h1
+              <motion.p
                 className="display text-[clamp(3rem,6vw,6.5rem)] text-chalk leading-[0.9]"
                 variants={riseUp} initial="hidden" animate="visible" custom={2}
               >
                 your website could look
-              </motion.h1>
+              </motion.p>
             </div>
             <div className="mb-10 pb-2">
-              <motion.h1
+              <motion.p
                 className="display-italic text-[clamp(3rem,6vw,6.5rem)] text-coral leading-[0.9]"
                 variants={riseUp} initial="hidden" animate="visible" custom={3}
               >
                 so good.
-              </motion.h1>
+              </motion.p>
             </div>
 
             {/* Divider + subtext */}
