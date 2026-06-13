@@ -51,8 +51,18 @@ export default function ContactForm({ dark = false }) {
 
   if (sent) return (
     <div className="py-16 text-center">
-      <div className={`display text-fluid-lg mb-4 ${dark ? 'text-chalk' : 'text-ink'}`}>You're on the list.</div>
-      <p className={`font-body text-lg ${dark ? 'text-chalk/70' : 'text-ink/65'}`}>Expect a mockup in your inbox within 24 hours.</p>
+      <div className={`display text-fluid-lg mb-6 ${dark ? 'text-chalk' : 'text-ink'}`}>You're on the <span className="text-coral">list.</span></div>
+      <p className={`font-body text-lg max-w-md mx-auto leading-relaxed mb-8 ${dark ? 'text-chalk/70' : 'text-ink/65'}`}>
+        I'll review your info and reach out to confirm a few details. Once we're aligned, your mockup will be in your inbox within 24 hours.
+      </p>
+      <ul className="inline-flex flex-col gap-2 text-left">
+        {['I review your form and reach out', 'You confirm the direction', 'Mockup lands in 24 hours'].map((item) => (
+          <li key={item} className="flex items-center gap-3 font-body text-base font-semibold text-coral">
+            <span className="w-1.5 h-1.5 rounded-full bg-coral flex-shrink-0" />
+            {item}
+          </li>
+        ))}
+      </ul>
     </div>
   )
 
