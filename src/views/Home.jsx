@@ -320,7 +320,7 @@ export default function Home() {
             </motion.div>
           </div>
 
-          <WorksGallery projects={projects} />
+          <WorksGallery projects={projects.filter(p => p.featured)} />
         </div>
       </section>
 
