@@ -470,7 +470,7 @@ export default function Home() {
             <p className="font-body text-ink/65 text-lg leading-relaxed mb-12">
               I've spent 12 years as a developer, and I'm using every tool at my disposal to give small businesses the online presence they deserve. Fast, affordable, and zero agency markup.
             </p>
-            <div className="flex gap-12">
+            <div className="grid grid-cols-3 gap-4 sm:flex sm:gap-12">
               {[['12', 'Years experience'], [String(projects.length), 'Businesses rebuilt'], ['24hr', 'Turnaround']].map(([n, l], i) => (
                 <motion.div
                   key={l}
