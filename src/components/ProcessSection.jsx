@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -39,11 +39,21 @@ export default function ProcessSection() {
   const outerRef    = useRef(null)
   const progressRef = useRef(null)
   const nudgeRef    = useRef(null)
+  const [isDesktop, setIsDesktop] = useState(false)
+
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 1024px)')
+    setIsDesktop(mq.matches)
+    const handler = (e) => setIsDesktop(e.matches)
+    mq.addEventListener('change', handler)
+    return () => mq.removeEventListener('change', handler)
+  }, [])
 
   // One ref object per step: { row, ghost }
   const stepRefs = useRef(STEPS.map(() => ({ row: null, ghost: null })))
 
   useEffect(() => {
+    if (!isDesktop) return
     const ctx = gsap.context(() => {
       // ── Initial state: step 1 active, all others dimmed ──
       STEPS.forEach((_, i) => {
@@ -108,7 +118,54 @@ export default function ProcessSection() {
     }, outerRef)
 
     return () => ctx.revert()
-  }, [])
+  }, [isDesktop])
+
+  // ── Mobile layout: plain stacked list, no GSAP ──
+  if (!isDesktop) {
+    return (
+      <section className="bg-chalk px-6 py-20">
+        <div className="max-w-lg mx-auto">
+          <h2 className="display text-[clamp(2.5rem,8vw,4rem)] text-ink leading-none mb-4">
+            A new website<br />in your inbox.<br />
+            <span className="text-coral">Tomorrow.</span>
+          </h2>
+          <p className="font-body text-sm text-ink/40 mb-12">5 steps · Under 24 hours to preview</p>
+
+          <div className="space-y-0">
+            {STEPS.map((step) => {
+              if (step.isFinal) {
+                return (
+                  <div key={step.num} className="mt-4 bg-coral rounded-2xl px-6 py-8 relative overflow-hidden">
+                    <span className="pointer-events-none select-none absolute right-4 top-1/2 -translate-y-1/2 display leading-none text-[5rem] text-chalk/10" aria-hidden="true">05</span>
+                    <div className="relative">
+                      <span className="font-body text-sm font-semibold text-chalk/55 block mb-2">05</span>
+                      <p className="display text-[clamp(1.6rem,5vw,2.2rem)] text-chalk leading-tight mb-3">{step.title}</p>
+                      <p className="font-body text-base text-chalk/75 leading-relaxed mb-6">{step.body}</p>
+                      <Link
+                        href="/#contact"
+                        className="inline-flex items-center gap-2 bg-chalk text-ink font-body font-semibold px-6 py-3 rounded-full text-sm cursor-pointer hover:bg-white transition-colors duration-200"
+                      >
+                        Get My Free Mockup →
+                      </Link>
+                    </div>
+                  </div>
+                )
+              }
+              return (
+                <div key={step.num} className="relative flex gap-5 py-6 border-b border-ink/8">
+                  <span className="font-body text-sm font-semibold text-coral pt-0.5 w-8 flex-shrink-0 tabular-nums">{step.num}</span>
+                  <div>
+                    <p className="font-body font-bold text-lg text-ink mb-1 leading-snug">{step.title}</p>
+                    <p className="font-body text-base text-ink/55 leading-relaxed">{step.body}</p>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      </section>
+    )
+  }
 
   return (
     // Outer div provides the scroll real-estate (300vh)
