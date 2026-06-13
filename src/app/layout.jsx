@@ -34,13 +34,13 @@ export const metadata = {
     url: 'https://www.mistersogood.com',
     title: 'Mr. So Good · Web Design for Small Business',
     description: 'Free website mockup in 24 hours. Nick redesigns and builds websites for small businesses: fast, affordable, no agency markup.',
-    images: [{ url: '/nick.JPG', width: 1200, height: 630, alt: 'Mr. So Good — Web Design for Small Business' }],
+    images: [{ url: '/og-image.jpg', width: 1200, height: 630, alt: 'Mr. So Good — Web Design for Small Business' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Mr. So Good · Web Design for Small Business',
     description: 'Free website mockup in 24 hours. Nick redesigns and builds websites for small businesses: fast, affordable, no agency markup.',
-    images: ['/nick.JPG'],
+    images: ['/og-image.jpg'],
   },
   alternates: {
     canonical: 'https://www.mistersogood.com',
