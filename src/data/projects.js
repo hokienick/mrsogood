@@ -34,7 +34,7 @@ export const projects = [
     beforeImages: [
       { src: '/before/riverpearl.png', label: 'Home' },
     ],
-    afterUrl: 'https://river-and-pearl.vercel.app',
+    afterUrl: 'https://riverandpearl.com',
     thumbnail: '/work-riverpearl.jpg',
     previewFit: 'reveal',
     previewPosition: 'center',
