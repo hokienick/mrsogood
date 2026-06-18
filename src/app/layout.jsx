@@ -22,6 +22,10 @@ const spaceGrotesk = Space_Grotesk({
 
 export const metadata = {
   metadataBase: new URL('https://www.mistersogood.com'),
+  icons: {
+    icon: '/favicon.png',
+    apple: '/favicon.png',
+  },
   title: {
     default: 'Mr. So Good · Web Design for Small Business',
     template: '%s · Mr. So Good',
