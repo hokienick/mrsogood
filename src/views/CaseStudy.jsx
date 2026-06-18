@@ -73,8 +73,16 @@ export default function CaseStudy() {
     const ctx = gsap.context(() => {
       // ── Before: screenshot slides up inside the browser chrome ──
       if (screenshotInnerRef.current && beforeOuterRef.current) {
+        const container = screenshotInnerRef.current.parentElement
+        const img = screenshotInnerRef.current.querySelector('img') ?? screenshotInnerRef.current
+        const containerH = container?.clientHeight ?? 0
+        const imgH = img.naturalHeight
+          ? (img.clientWidth / img.naturalWidth) * img.naturalHeight
+          : img.scrollHeight
+        const travel = Math.max(imgH - containerH, 0)
+
         gsap.to(screenshotInnerRef.current, {
-          y: '-40%',
+          y: -travel,
           ease: 'none',
           scrollTrigger: {
             trigger: beforeOuterRef.current,
